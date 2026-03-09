@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="uz" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IT ARENA PRO | BATTLE SYSTEM</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <div id="start-screen" class="overlay">
+        <div class="logo" style="font-size: 48px; margin-bottom: 10px">
+          IT ARENA PRO
+        </div>
+        <p style="color: var(--text-dim); margin-bottom: 40px; font-size: 18px">
+          Level up your coding skills!
+        </p>
+        <div class="form-card">
+          <input
+            type="text"
+            id="fname"
+            placeholder="Ismingiz"
+            autocomplete="off"
+          />
+          <input
+            type="text"
+            id="lname"
+            placeholder="Familiyangiz"
+            autocomplete="off"
+          />
+          <div class="input-group">
+            <select
+              id="grade"
+              style="
+                background-color: rgba(255, 255, 255, 0.05);
+                color: white;
+                border: 1px solid rgba(0, 210, 255, 0.3);
+              "
+            >
+              <option value="" disabled selected>Sinfni tanlang</option>
+              <option value="5">5-sinf (Informatika)</option>
+              <option value="6">6-sinf (Grafik tahrir)</option>
+              <option value="7">7-sinf (Algoritmlash)</option>
+              <option value="8">8-sinf (Web Dasturlash)</option>
+              <option value="9">9-sinf (Java Asoslari)</option>
+              <option value="10">10-sinf (Java OOP)</option>
+              <option value="11">11-sinf (DB & Tarmoqlar)</option>
+            </select>
+          </div>
+          <button class="btn-play" onclick="startBattle()">
+            BATTLEGA KIRISH
+          </button>
+        </div>
+      </div>
+
+      <div id="end-screen" class="overlay hidden">
+        <div id="end-emoji" style="font-size: 120px; margin-bottom: 20px">
+          🏆
+        </div>
+        <h1
+          id="end-title"
+          style="font-size: clamp(32px, 8vw, 56px); margin-bottom: 10px"
+        >
+          G'ALABA!
+        </h1>
+        <p
+          id="end-details"
+          style="
+            font-size: 20px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            text-align: center;
+          "
+        ></p>
+        <button
+          class="btn-play"
+          style="min-width: 280px"
+          onclick="location.reload()"
+        >
+          RESTART BATTLE
+        </button>
+      </div>
+
+      <div class="top-bar">
+        <div class="logo">IT ARENA</div>
+        <div
+          id="lvl-badge"
+          style="
+            background: var(--glass);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            font-weight: 800;
+          "
+        >
+          STAGE <span id="lvl" style="color: var(--primary)">1</span> / 20
+        </div>
+        <button
+          class="theme-switch"
+          style="
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 24px;
+          "
+          onclick="toggleTheme()"
+        >
+          🌓
+        </button>
+      </div>
+
+      <div class="arena">
+        <div class="hero" id="player-unit">
+          <div class="avatar">🧙‍♂️</div>
+          <div id="p-name" style="font-weight: 800; letter-spacing: 1px">
+            PLAYER
+          </div>
+          <div class="hp-outer"><div id="p-hp" class="hp-inner"></div></div>
+        </div>
+        <div style="font-size: 24px; font-weight: 900; opacity: 0.3">VS</div>
+        <div class="hero" id="enemy-unit">
+          <div class="avatar">👾</div>
+          <div
+            style="
+              font-weight: 800;
+              color: var(--secondary);
+              letter-spacing: 1px;
+            "
+          >
+            CORE_BUG
+          </div>
+          <div class="hp-outer">
+            <div id="e-hp" class="hp-inner hp-enemy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quiz-section">
+        <div class="question-box" id="q-text">Savol yuklanmoqda...</div>
+        <div class="options-grid" id="opt-grid"></div>
+      </div>
+    </div>
+
+  <script src="./script.js"></script>
+  </body>
+</html>
