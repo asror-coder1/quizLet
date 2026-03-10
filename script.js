@@ -753,12 +753,47 @@ function toggleTheme() {
 }
 
 function startBattle() {
+  const fInput = document.getElementById("fname").value.trim();
+  const lInput = document.getElementById("lname").value.trim();
+  const grade = document.getElementById("grade").value;
+
+  const namePattern = /^[a-zA-Z'ʻ‘’` ]+$/;
+
+  // Bo'sh joy tekshiruvi
+  if (!fInput || !lInput) {
+    return Swal.fire(
+      "Xato!",
+      "Iltimos, ism va familiyangizni to'liq kiriting!",
+      "error",
+    );
+  }
+
+  if (fInput.length < 3 || lInput.length < 3) {
+    return Swal.fire(
+      "Diqqat!",
+      "Ism va familiya kamida 3 ta harfdan iborat bo'lishi kerak!",
+      "warning",
+    );
+  }
+
+  if (!namePattern.test(fInput) || !namePattern.test(lInput)) {
+    return Swal.fire(
+      "Xato!",
+      "Ism va familiyada faqat harflar ishtirok etishi mumkin!",
+      "error",
+    );
+  }
+
+  const formattedF =
+    fInput.charAt(0).toUpperCase() + fInput.slice(1).toLowerCase();
+  const formattedL =
+    lInput.charAt(0).toUpperCase() + lInput.slice(1).toLowerCase();
+
   user = {
-    f: document.getElementById("fname").value,
-    l: document.getElementById("lname").value,
-    g: document.getElementById("grade").value,
+    f: formattedF,
+    l: formattedL,
+    g: grade,
   };
-  if (!user.f || !user.l) return alert("Ism va familiyangizni kiriting!");
 
   document.getElementById("start-screen").classList.add("hidden");
   document.getElementById("p-name").innerText = user.f.toUpperCase();
@@ -837,4 +872,33 @@ function sendTelegram(status) {
       parse_mode: "Markdown",
     }),
   });
+}
+
+// Foydalanuvchi sahifadan chiqsa yoki boshqa tabga o'tsa ishlaydi
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && qIdx > 0 && pHP > 0 && eHP > 0) {
+    handleCheat("Boshqa oynaga o'tgani uchun!");
+  }
+});
+
+// Brauzer fokusini yo'qotsa (masalan, boshqa dasturni ochsa)
+window.addEventListener("blur", () => {
+  if (qIdx > 0 && pHP > 0 && eHP > 0) {
+    handleCheat("O'yin fokusini yo'qotgani uchun!");
+  }
+});
+
+function handleCheat(reason) {
+  pHP = 0; // O'yinchi mag'lub etiladi
+  updateHP();
+
+  // Telegram'ga maxsus xabar yuborish
+  sendTelegram(`⚠️ CHEAT ANIQLANDI! \nSabab: ${reason}`);
+
+  // Foydalanuvchiga ogohlantirish chiqarish
+  alert(
+    "DIQQAT! Boshqa oynaga o'tish taqiqlangan. Siz o'yindan chetlatildingiz! ⛔",
+  );
+
+  finish(); // O'yinni tugatish ekraniga o'tish
 }

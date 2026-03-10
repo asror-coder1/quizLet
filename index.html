@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IT ARENA PRO | BATTLE SYSTEM</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div class="app-container">
@@ -21,13 +21,17 @@
             type="text"
             id="fname"
             placeholder="Ismingiz"
-            autocomplete="off"
+            minlength="3"
+            maxlength="20"
+            required
           />
           <input
             type="text"
             id="lname"
             placeholder="Familiyangiz"
-            autocomplete="off"
+            minlength="3"
+            maxlength="25"
+            required
           />
           <div class="input-group">
             <select
@@ -142,6 +146,6 @@
       </div>
     </div>
 
-  <script src="./script.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
